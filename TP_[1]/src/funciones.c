@@ -1,0 +1,107 @@
+/*
+ * funciones.c
+ *
+ *  Created on: 3 sep. 2021
+ *      Author: Agustin
+ */
+#ifndef FUNCIONES_H_
+#define FUNCIONES_H_
+#include <stdio.h>
+#include <stdlib.h>
+/**
+ * @fn float sumar(float, float)
+ * @brief Permite ingresar 2 numeros y retorna la suma de los mismos.
+ * @param El parametro a: Es 1ER numero ingresado por el usuario.
+ * @param El parametro b: Es 2DO numero ingresado por el usuario.
+ * @param La variable resultado: es la suma de a+b.
+ * @return La suma de los numeros ingresados.
+ */
+float sumar(float a, float b)
+{
+	float resultado;
+
+	resultado=a+b;
+
+	return resultado;
+}
+/**
+ * @fn float resta(float, float)
+ * @brief Permite ingresar 2 numeros y retorna la resta de los mismos.
+ * @param El parametro a: Es 1ER numero ingresado por el usuario.
+ * @param El parametro b: Es 2DO numero ingresado por el usuario.
+ * @param La variable resultado: es la resta de a+b.
+ * @return La resta de los numeros ingresados.
+ */
+float resta(float a, float b)
+{
+	float resultado;
+
+	resultado=a-b;
+
+	return resultado;
+}
+/**
+ * @fn float division(float, float)
+ * @brief Permite ingresar 2 numeros y retorna la division de los mismos.
+ * @param El parametro a: Es 1ER numero ingresado por el usuario.
+ * @param El parametro a: Es 1ER numero ingresado por el usuario.
+ * @param La variable resultado: es la multiplicacion de a/b.
+ *  @param La condicion "if" nos indica si b no es igual a 0, entra
+ *  y devuelve "la division realizada por el usuario".
+ * @param La condicion "else" nos indica si el numero ingresado "b"
+ * es igual a 0, entra y devuelve "no se puede dividir por 0".
+ * @return La division de los numeros ingresados o un 0.
+ */
+float division(float a, float b)
+{
+	float resultado;
+
+	if(b!=0)
+	{
+		resultado=a/b;
+		return resultado;
+	}
+	else
+	{
+		return 0;
+	}
+}
+/**
+ * @fn int Multiplicacion(int, int)
+ * @brief Permite ingresar 2 numeros y retorna la multiplicacion de los mismos.
+ * @param El parametro a: Es 1ER numero ingresado por el usuario.
+ * @param El parametro b: Es 2DO numero ingresado por el usuario.
+ * @param La variable resultado: es la multiplicacion de a*b.
+ * @return La multiplicacion de los numeros ingresados.
+ */
+float Multiplicacion(float a, float b)
+{
+	float resultado;
+
+	resultado=a*b;
+
+	return resultado;
+}
+/**
+ * @fn int calcularFactorial(int)
+ * @brief Permite ingresar un numero y retorna el factorial del mismo.
+ * @param El parametro numero: Es el ingreso de un numero por el usuario.
+ * @param La variable factorial: Esta igualada a 0 y es la que utilazaremos para
+ * hacer el calculo de un factorial, Ejemplo: (!numero).
+ * @param La condicion "if" nos indica si el numero ingresado es distinto a 0 y 1.
+ * si se cumple la condicion entra y realiza el calculo.
+ * @return Factorial calculado y pedido por el usuario.
+ */
+float calcularFactorial(float numero)
+{
+	float factorial=1;
+
+	if( numero!=1 && numero!=0)
+	{
+		factorial=numero*calcularFactorial(numero-1);
+
+	}
+	return factorial;
+}
+
+#endif
