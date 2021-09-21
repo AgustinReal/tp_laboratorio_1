@@ -1,11 +1,13 @@
 /*
- * funciones.c
+ * funciones.h
  *
  *  Created on: 3 sep. 2021
  *      Author: Agustin
  */
-#include <stdio.h>
-#include <stdlib.h>
+#ifndef FUNCIONES_H_
+#define FUNCIONES_H_
+
+//Bibliotecas para realizar cada calculo.
 /**
  * @fn float sumar(float, float)
  * @brief Permite ingresar 2 numeros y retorna la suma de los mismos.
@@ -14,14 +16,7 @@
  * @param La variable resultado: es la suma de a+b.
  * @return La suma de los numeros ingresados.
  */
-float sumar(float a, float b)
-{
-	float resultado;
-
-	resultado=a+b;
-
-	return resultado;
-}
+float sumar(float a, float b);
 /**
  * @fn float resta(float, float)
  * @brief Permite ingresar 2 numeros y retorna la resta de los mismos.
@@ -30,14 +25,7 @@ float sumar(float a, float b)
  * @param La variable resultado: es la resta de a+b.
  * @return La resta de los numeros ingresados.
  */
-float resta(float a, float b)
-{
-	float resultado;
-
-	resultado=a-b;
-
-	return resultado;
-}
+float resta(float a, float b);
 /**
  * @fn float division(float, float)
  * @brief Permite ingresar 2 numeros y retorna la division de los mismos.
@@ -50,20 +38,7 @@ float resta(float a, float b)
  * es igual a 0, entra y devuelve "no se puede dividir por 0".
  * @return La division de los numeros ingresados o un 0.
  */
-float division(float a, float b)
-{
-	float resultado;
-
-	if(b!=0)
-	{
-		resultado=a/b;
-		return resultado;
-	}
-	else
-	{
-		return 0;
-	}
-}
+float Multiplicacion(float a, float b);
 /**
  * @fn int Multiplicacion(int, int)
  * @brief Permite ingresar 2 numeros y retorna la multiplicacion de los mismos.
@@ -72,14 +47,7 @@ float division(float a, float b)
  * @param La variable resultado: es la multiplicacion de a*b.
  * @return La multiplicacion de los numeros ingresados.
  */
-float Multiplicacion(float a, float b)
-{
-	float resultado;
-
-	resultado=a*b;
-
-	return resultado;
-}
+float division(float a, float b);
 /**
  * @fn int calcularFactorial(int)
  * @brief Permite ingresar un numero y retorna el factorial del mismo.
@@ -90,16 +58,30 @@ float Multiplicacion(float a, float b)
  * si se cumple la condicion entra y realiza el calculo.
  * @return Factorial calculado y pedido por el usuario.
  */
-float calcularFactorial(float numero)
-{
-	float factorial=1;
-
-	if( numero!=1 && numero!=0)
-	{
-		factorial=numero*calcularFactorial(numero-1);
-
-	}
-	return factorial;
-}
-
-
+int calcularFactorialEnteros(float numero);
+/**
+ * @fn int verificarPositivo(float)
+ * @brief Esta funcion verifica el numero es positivo.
+ * @param El numero : lo usamos para verificar si el numero es mayor (POSITIVO).
+ * @return Usamos el valor para devolver un 1 si el numero es positivo o
+ * un 0 si el numero  es negativo.
+ */
+int verificarPositivo(float numero);
+/**
+ * @fn int verificarEntero(float)
+ * @brief Este apartado verifica si el numero ingresado es entero.
+ * @param if:Utilizamos el if para castear el numero ingresado "float" y quedarnos con la parte entera.
+ * @param El parametro numero la usamos para varificar si el numero es enttero o no.
+ * @return Usamos valor para retornar 1 si el numero es entero o valor 0 si el numero rea
+ */
+int verificarEntero(float numero);
+/**
+ * @fn int verificarSePuedeCalcularFactorial(float)
+ * @brief Esta funcion verifica si se pudo calcular el factorial sabiendo que no puede ser negativo o numero real.
+ * @param if:Usamos el if para usar las 2 funciones anteriores y meterla en uno ya que usamos == asignarle 1.
+ * @param El parametro numero es el parametro de las anteriores funciones para igualar los casos verificados.
+ * @return El retorna valor que es una variable auxiliar que le asignamos un 1 o un 0.
+ * Si la variable devuelve 1 se pudo verificar "numero es positivo y entero" o devuelve un 0 "no es positivo o entero".
+ */
+int verificarSePuedeCalcularFactorial(float numero );
+#endif
