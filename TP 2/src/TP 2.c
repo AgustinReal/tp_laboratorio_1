@@ -30,24 +30,21 @@ int main(void)
 
 
 	int option;
-	int listEmpleadosAux;
-	int tamEmpleados;
 	int employeesAuxPosicionVacia;
 	char afirmacion;
-	int contadorIdEmployees=0;
-	int error=-1;
 	int contadorId=1;
 	int almacenarAuxIdModificar;
 	int contadorEmployeesActivo=0;
 	int minIdcontador=1;
 	int maxIdcontador=32767;
 	int auxBuscarIndice;
-	int contadorSuperanSalarioEmpleados=0;
 	float promedio;
 	float acumuladorSalario=0;
 	int contadorSueldos=0;
+	int contadorSuperanSalarioEmpleados=0;
 
 	initEmployees(listEmpleados, longListaEmpleados);
+
 
 	do
 	{
@@ -154,38 +151,20 @@ int main(void)
 				}
 				else
 				{
-					printf("No se ha ingresado ningun employees...");
+					printf("No se ha ingresado ningun employees...\n");
 				}
                 option=0;
 				break;
 			case 3:
 				if(contadorEmployeesActivo>0)
 				{
-					pedirEntero(&almacenarAuxIdModificar, "Ingrese el numero de Id del empleado que se dara de baja: ", "Error. Ingrese el numero de Id del empleado que se dara de baja: ", minIdcontador, maxIdcontador);
-					auxBuscarIndice=findEmployeeById(listEmpleados, longListaEmpleados, almacenarAuxIdModificar);
-					if(listEmpleados[auxBuscarIndice].isEmpty==0)
-					{
-						showAnEmployee(listEmpleados[auxBuscarIndice]);
-						pedirCaracter(&afirmacion,"\n\nPresione S para agregar dar de baja al empleado");
-						if(afirmacion=='s' || afirmacion=='S')
-						{
-							removeEmployee(listEmpleados,  longListaEmpleados, almacenarAuxIdModificar);
-						}
-						else
-						{
-							printf("Se ha producido un error...\n");
-						}
-					}
-					else
-					{
-						printf("Se ha producido un error...");
-					}
+					removeEmployee(listEmpleados,  longListaEmpleados, almacenarAuxIdModificar);
 				}
 				else
 				{
-					printf("No se ha ingresado ningun employees...");
+					printf("No se ha ingresado ningun employees...\n");
 				}
-				break;
+			break;
 			case 4:
 				if(contadorEmployeesActivo>0)
 				{
@@ -210,32 +189,46 @@ int main(void)
 						switch(option)
 						{
 							case 1:
-								printf("Entro en caso 1 ordenamiento");
-								sortEmployees(listEmpleados, longListaEmpleados);
+								pedirEntero(&option, "Ingrese:\n"
+													"1)Orden Acendente.\n"
+													"2)Orden Decendente. \n",
+													"Ingreso Invalido reingrese:\n"
+													"1)Orden Acendente.\n"
+													"2)Orden Decendente. \n",1,2);
+								if(option==1)
+								{
+									sortEmployees(listEmpleados, longListaEmpleados, 1);
+								}
+								else
+								{
+									sortEmployees(listEmpleados, longListaEmpleados, 2);
+								}
+								printEmployees(listEmpleados, longListaEmpleados);
+								system("pause");
+								break;
 								break;
 							case 2:
 
 								walkActiveEmployees(listEmpleados, longListaEmpleados,  &acumuladorSalario,  &contadorSueldos);
-
-								promedio=(float)acumuladorSalario/contadorSueldos;
-
-							    averageAverageSalary(listEmpleados, longListaEmpleados, promedio , &contadorSuperanSalarioEmpleados);
+								CalculateAverageOfEmployees(listEmpleados, longListaEmpleados, &acumuladorSalario, &contadorSueldos, &promedio);
+							    averageAverageSalary(listEmpleados, longListaEmpleados, &promedio , &contadorSuperanSalarioEmpleados);
 
 							    printf("\nEl total de salario es: %.2f\n", acumuladorSalario);
 							    printf("El promedio de los salarios es: %.2f\n ", promedio);
 							    printf("La cantidad de peronas que superan el salario es: %d\n", contadorSuperanSalarioEmpleados);
+							    printf("\n\n");
 
-								break;
+							break;
+							option=0;
 						}
-						option=0;
 					}while(option!=3);
-					option=0;
 				}
 				else
 				{
-					printf("No se ha ingresado ningun employees...");
+					printf("No se ha ingresado ningun employees...\n");
 				}
-				break;
+				option=0;
+			break;
 		}
 	}while(option!=5);
 }

@@ -9,10 +9,10 @@
 #include <string.h>
 #include "ArrayEmployees.h"
 #include "ingresosAux.h"
+#include <ctype.h>
 
 
 int initEmployees(Employee* list, int len)
-
 {
 	int retorno=-1;
 
@@ -28,7 +28,7 @@ int initEmployees(Employee* list, int len)
 }
 int addEmployee(Employee* list, int len, int id, char name[], char lastName[], float salary, int sector)
 {
-  int valor;
+  int retorno;
   int index;
   index=seachEmployees(list, len);
 
@@ -43,20 +43,21 @@ int addEmployee(Employee* list, int len, int id, char name[], char lastName[], f
 			list[index].salary=salary;
 			list[index].sector=sector;
 			list[index].isEmpty=0;
+			retorno=1;
 		}
 		else
 		{
 			printf("\nError ya se cargo la lista no hay espacios disponibles...\n");
 		}
-		valor=0;
+		retorno=0;
 	}
 	else
 	{
 		printf("\nNo se pudo cargar...\n");
-		valor=-1;
+		retorno=-1;
 	}
 
- return valor;
+ return retorno;
 }
 int findEmployeeById(Employee* list, int len,int id)
 {
@@ -76,6 +77,7 @@ int findEmployeeById(Employee* list, int len,int id)
 
  return index;
 }
+
 int walkActiveEmployees(Employee* list, int len, float* acumuladorSalarioAux, int* contadorSueldosAux)
 {
 	int retorno=-1;
@@ -97,20 +99,33 @@ int walkActiveEmployees(Employee* list, int len, float* acumuladorSalarioAux, in
 
 	return retorno;
 }
-int averageAverageSalary(Employee* list, int len, float promedioAux , int* contadorSuperanSalario)
+
+int CalculateAverageOfEmployees(Employee* list, int len, float* acumuladorSalarioAux, int* contadorSueldosAux, float* promedioAux)
+{
+	int retorno=-1;
+
+	if(list!=NULL)
+	{
+		*promedioAux=(*acumuladorSalarioAux/(float)*contadorSueldosAux);
+		retorno=1;
+	}
+
+	return retorno;
+}
+int averageAverageSalary(Employee* list, int len, float* promedioAux , int* contadorSuperanSalario)
 {
 	int retorno=-1;
 	*contadorSuperanSalario=0;
 
-	if(list!=NULL )
+	if(list!=NULL)
 	{
 		for(int i=0; i<len; i++)
 		{
-			if(list[i].salary>promedioAux)
+			if(list[i].isEmpty==0 && list[i].salary>*promedioAux)
 			{
 				*contadorSuperanSalario+=1;
+				retorno=1;
 			}
-			retorno=1;
 		}
 	}
 	return retorno;
@@ -128,14 +143,13 @@ int removeEmployee(Employee* list, int len, int id)
 
 		if(index!=-1)
 		{
-			printf("\nEl empleado a eliminar:\n\n %-5d %-20s %-20s %-20.2f %-20d\n", "Id", "Name", "LastName", "Salary", "Sector", "IsEmpty");
 			showAnEmployee(list[index]);
 
 			if(!confirmYesOrNoEmployee("\nIngrese 's' para confirmar el despido  del empleado."))
 			{
-				list[index].isEmpty=VACIO;
+				list[index].isEmpty=1;
 				printf("\nEl empleado %s fue despedido correctamente!\n\n", list[index].name);
-				retorno=0;
+				retorno=1;
 			}
 			else
 			{
@@ -149,74 +163,68 @@ int removeEmployee(Employee* list, int len, int id)
 	}
 	return retorno;
 }
-int sortEmployees(Employee* list, int len)
+int sortEmployees(Employee* list, int len, int order)
 {
-	int order;
 	int retorno=-1;
-	Employee auxList;
+	int i;
+	int j;
+	Employee auxEmployee;
 
-	if(list!=NULL)
+	switch (order)
 	{
-
-	   printf("Ingrese la manera que quiere ordenar los nombres, 1 para ascendente o 2 para de descendente: ");
-	   fflush(stdin);
-	   scanf("%d", &order);
-
-	   while(order>3)
-	   {
-		   printf("Ingrese la manera que quiere ordenar los nombres, 1 para ascendente o 2 para de descendente: ");
-		   fflush(stdin);
-		   scanf("%d", &order);
-	   }
-
-	   switch(order)
-	   {
-		 case 1:
-			for(int i=0;i<len;i++)
+		case 1:
+			if(list !=NULL)
 			{
-			  for(int j=i+1;j<len;j++)
-			  {
-				  if(list[i].isEmpty==1 && list[j].isEmpty==1 && strcmp(list[i].lastName, list[j].lastName)==1)
-				  {
-					  auxList=list[i];
-					  list[i]=list[j];
-					  list[j]=auxList;
-				  }
-				  else if(strcmp(list[i].lastName, list[j].lastName)==0 && list[i].sector>list[j].sector)
-				  {
-					  auxList=list[i];
-					  list[i]=list[j];
-				      list[j]=auxList;
-				  }
-			  }
+				for(i=0; i<len-1; i++)
+					{
+						for(j=i+1; j<len; j++)
+						{
+							if(strcmp(list[i].lastName, list[j].lastName)==1)
+							{
+								auxEmployee = list[i];
+								list[i] = list[j];
+								list[j] = auxEmployee;
+							}
+							else if((strcmp(list[i].lastName, list[j].lastName)==0) && list[i].sector>list[j].sector)
+							{
+								auxEmployee = list[i];
+								list[i] = list[j];
+								list[j] = auxEmployee;
+							}
+						}
+					}
+				retorno=0;
 			}
-		 break;
-		 case 2:
-			 for(int i=0;i<len;i++)
-			 {
-			   for(int j=i+1;j<len;j++)
-			   {
-				   if(list[i].isEmpty==1 && list[j].isEmpty==1 && strcmp(list[i].lastName, list[j].lastName)==-1)
-				   {
-					  auxList=list[i];
-					  list[i]=list[j];
-					  list[j]=auxList;
-				   }
-				   else if(strcmp(list[i].lastName, list[j].lastName)==0 && list[i].sector>list[j].sector)
-				  {
-					  auxList=list[i];
-					  list[i]=list[j];
-					  list[j]=auxList;
-				  }
-			   }
-			 }
-		 break;
-		 retorno=1;
-	   }
-
+		break;
+		case 2:
+			if(list !=NULL)
+			{
+				for(i=0; i<len-1; i++)
+					{
+						for(j=i+1; j<len; j++)
+						{
+							if(strcmp(list[i].lastName, list[j].lastName)<0)
+							{
+								auxEmployee = list[i];
+								list[i] = list[j];
+								list[j] = auxEmployee;
+							}
+							else if((strcmp(list[i].lastName, list[j].lastName)==0) && list[i].sector<list[j].sector)
+							{
+								auxEmployee = list[i];
+								list[i] = list[j];
+								list[j] = auxEmployee;
+							}
+						}
+					}
+				retorno=0;
+			}
+		break;
 	}
 
-	return retorno;
+
+return retorno;
+
 }
 int printEmployees(Employee* list, int length)
 {
@@ -224,7 +232,6 @@ int printEmployees(Employee* list, int length)
 
 	if(list!=NULL)
 	{
-		printf("\nLista de empleados:\n\n %-5d %-20s %-20s %-20.2f %-20d\n", "Id", "Name", "LastName", "Salary", "Sector", "IsEmpty");
 
 		for(int i=0;i<length;i++)
 		{
@@ -234,7 +241,7 @@ int printEmployees(Employee* list, int length)
 			}
 		}
 		printf("\n");
-  	 retorno=0;
+  	 retorno=1;
 	}
 
 	return retorno;
