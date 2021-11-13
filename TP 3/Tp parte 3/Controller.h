@@ -79,9 +79,25 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee);
  * @return Esta funcion retorna: 1 o -1: 1 si la funcion se pudo relaizar o -1 si la funcion no se lo logro realizar.
  */
 int controller_sortEmployee(LinkedList* pArrayListEmployee);
-
+/**
+ * @fn int controller_saveAsText(char*, LinkedList*)
+ * @brief Esta funcion Guarda los datos de los empleados en el archivo data.csv (modo texto).
+ *
+ * @param path: Es el camino que esta asignado el archivo en este caso en modo texto.
+ * @param pArrayListEmployee: Lista de los empleados.
+ *
+ * @return Esta funcion retorna: 1 o -1: 1 si la funcion se pudo relaizar o -1 si la funcion no se lo logro realizar.
+ */
 int controller_saveAsText(char* path , LinkedList* pArrayListEmployee);
-
+/**
+ * @fn int controller_saveAsText(char*, LinkedList*)
+ * @brief Esta funcion Guarda los datos de los empleados en el archivo dataBinaria.bin (modo binario).
+ *
+ * @param path: Es el camino que esta asignado el archivo en este caso en modo binario.
+ * @param pArrayListEmployee: Lista de los empleados.
+ *
+ * @return Esta funcion retorna: 1 o -1: 1 si la funcion se pudo relaizar o -1 si la funcion no se lo logro realizar.
+ */
 int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee);
 
 

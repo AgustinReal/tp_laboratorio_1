@@ -129,6 +129,10 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
 				IdEncontrado=i;
 				break;
 			}
+			else
+			{
+				printf("No se encontro ese empleado...\n");
+			}
 		}
 		if(IdEncontrado>0)
 		{
@@ -356,22 +360,6 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
 
     return retorno;
 }
-
-/** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto).
- *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
- */
-/**
- * @fn int controller_saveAsText(char*, LinkedList*)
- * @brief
- *
- * @param path
- * @param pArrayListEmployee
- * @return
- */
 int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
 {
 	int retorno=-1;
@@ -406,14 +394,6 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
 	fclose(pFile);
     return retorno;
 }
-
-/** \brief Guarda los datos de los empleados en el archivo data.csv (modo binario).
- *
- * \param path char*
- * \param pArrayListEmployee LinkedList*
- * \return int
- *
- */
 int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 {
 	printf("Guardando... archivo binario\n");

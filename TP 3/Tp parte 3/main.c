@@ -6,21 +6,6 @@
 #include "Employee.h"
 #include "inputs.h"
 
-/****************************************************
-    Menu:
-     1. Cargar los datos de los empleados desde el archivo data.csv (modo texto).
-     2. Cargar los datos de los empleados desde el archivo data.csv (modo binario).
-     3. Alta de empleado
-     4. Modificar datos de empleado
-     5. Baja de empleado
-     6. Listar empleados
-     7. Ordenar empleados
-     8. Guardar los datos de los empleados en el archivo data.csv (modo texto).
-     9. Guardar los datos de los empleados en el archivo data.csv (modo binario).
-    10. Salir
-*****************************************************/
-
-
 
 int main()
 {
@@ -31,7 +16,10 @@ int main()
     LinkedList* listaEmpleados=ll_newLinkedList();
     do{
 
-    	pedirEntero(&option,  "---------------------------------------------------------------------------------\n"
+    	pedirEntero(&option,  " _______________________________________________________________________________ \n"
+    			              "|                                                                               |\n"
+							  "|                                  MENU EMPLEADOS                               |\n"
+    						  "|_______________________________________________________________________________|\n"
 								"1.Cargar los datos de los empleados desde el archivo data.csv (modo texto).\n"
 								"2.Cargar los datos de los empleados desde el archivo data.bin (modo binario).\n"
 								"3.Alta de empleado.\n"
@@ -45,6 +33,10 @@ int main()
 								"---------------------------------------------------------------------------------\n"
 								"Ingrese una opcion: ",
 
+								" _______________________________________________________________________________ \n"
+							    "|                                                                               |\n"
+							    "|                                  MENU EMPLEADOS                               |\n"
+							    "|_______________________________________________________________________________|\n"
 								"1.Cargar los datos de los empleados desde el archivo data.csv (modo texto).\n"
 								"2.Cargar los datos de los empleados desde el archivo data.bin (modo binario).\n"
 								"3.Alta de empleado.\n"
@@ -142,7 +134,7 @@ int main()
             	option=0;
             	break;
             case 8:
-            	if(banderaPrimerLista==1)
+            	if(ll_len(listaEmpleados)!=0)
             	{
             		controller_saveAsText("data.csv", listaEmpleados);
             	}
@@ -153,7 +145,7 @@ int main()
             	option=0;
             	break;
             case 9:
-            	if(banderaPrimerLista==1)
+            	if(ll_len(listaEmpleados)!=0)
             	{
             		controller_saveAsBinary("dataBinaria.bin", listaEmpleados);
             	}
@@ -164,6 +156,7 @@ int main()
             	option=0;
             	break;
             case 10:
+            	ll_deleteLinkedList(listaEmpleados);
             	printf("Saliendo del sistema...");
             	option=0;
             	break;
