@@ -16,7 +16,16 @@ typedef struct
 } ePassenger;
 
 #endif // ARRAYPASSENGER_H_INCLUDED
-
+/**
+ * @fn int idController(ePassenger*, int, int)
+ * @brief This function find the max id in the list. Return the max id  plus 1.
+ *
+ * @param list: Array passenger.
+ * @param len: size array.
+ * @param id Passenger.
+ * @return Return (-1) if Error or Id max+1.
+ */
+int idController(ePassenger* list, int len, int id);
 /** \brief To indicate that all position in the array are empty, this function put the flag (isEmpty) in TRUE in all position of the array.
 *
 * \param list Passenger* Pointer to array of passenger.
@@ -29,7 +38,7 @@ int initPassengers(ePassenger* list, int len);
 *
 * \param list Passenger*: Array passenger.
 * \param len: size array.
-* \param id: Employee Income Number.
+* \param id: Passenger Income Number.
 * \return Return passenger index position or (-1) if [Invalid length or NULL pointer received or passenger not found]
 *
 */
@@ -38,7 +47,7 @@ int findPassengerById(ePassenger* list, int len, int id);
 *
 * \param list passenger*: Array passenger.
 * \param len: size array.
-* \param id: Employee Income Number.
+* \param id: Passenger Income Number.
 * \param name: Name of employee.
 * \param lastName: Last name of employee.
 * \param price: fly price.

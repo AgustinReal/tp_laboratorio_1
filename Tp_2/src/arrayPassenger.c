@@ -5,7 +5,25 @@
 #include "inputs.h"
 #include "arrayPassenger.h"
 
+int idController(ePassenger* list, int len, int id)
+{
+	int idMaximo=-1;
 
+	if(list!=NULL && len>0)
+	{
+		idMaximo=id;
+		for(int i=0;i<len;i++)
+		{
+			if(list[i].id>idMaximo && list[i].isEmpty==0)
+			{
+				idMaximo=list[i].id;
+			}
+		}
+		idMaximo=idMaximo+1;
+	}
+
+	return idMaximo;
+}
 int initPassengers(ePassenger* list, int len)
 {
     int todoOk=1;
@@ -67,57 +85,64 @@ int addPassenger(ePassenger* list, int len, int id, char name[],char lastName[],
         index=seachPassenger(list, len);
         if(index!=-1)
         {
-            printf(" ___________________________________________________________ \n");
-            printf("|                                                           |\n");
-            printf("|                 *** Alta de Passenger ***                 |\n");
-            printf("|___________________________________________________________|\n");
 
-
-            list[index].id=id;
-
-            ingresoCadena(name, "Ingrese el nombre del pasajero: ", "Error.Ingrese el nombre del pasajero: ", 21);
-            strcpy(list[index].name, name);
-
-            ingresoCadena(lastName, "Ingrese el apellido del pasajero: ", "Error.Ingrese el apellido del pasajero: ", 21);
-            strcpy(list[index].lastName, lastName);
-
-            ingresoFlotante(&price, "Ingrese el precio del vuelo entre(70000-150000): ", "Error.Ingrese el precio del vuelo entre(70000-150000): ", 70000, 150000);
-            list[index].price=price;
-
-            ingresoLetrasNumeros(flyCode, "Ingrese el codigo del vuelo del pasajero: ", "Error.Ingrese el codigo del vuelo del pasajero: ", 10);
-            strcpy(list[index].flyCode, flyCode);
-
-            ingresoEntero(&typePassenger, "Ingrese el tipo de pasajero (1-PRIMERA CLASE, 2-COMERCIAL, 3-TURISTA): ", "Ingrese el tipo de pasajero (1-PRIMERA CLASE, 2-COMERCIAL, 3-TURISTA): ", 1, 3);
-            list[index].typePassenger=typePassenger;
-
-            ingresoEntero(&statusFlight, "Ingrese el estado del vuelvo (1-ACTIVO, 2-DEMORADO, 3-CANCELADO): ", "Error.Ingrese el estado del vuelvo (1-ACTIVO, 2-DEMORADO, 3-CANCELADO): ", 1, 3);
-            list[index].statusFlight=statusFlight;
-
-            list[index].isEmpty=0;
-
-            printf("\n\n");
-
-            printf(" ________________________________________________________________________________________________\n");
-            printf("|                                                                                                |\n");
-            printf("|                                  **TRAVEL UTN ARGENTINA**                                      |\n");
-            printf("|                                        **PASSENGER**                                           |\n");
-            printf("|________________________________________________________________________________________________|\n");
-            printf("|   ID   |     NAME    |   LASTNAME  |   PRICE   | FLY CODE     | TYPE PASSENGER | STATUS FLIGHT |\n");
-            printf("|--------|-------------|-------------|-----------|--------------|----------------|---------------|\n");
-            printPassenger(list[index]);
-
-            ingresoChar(&afirmacion, "\n\nIngrese S para agregar al pasajero ingresado: ");
-            if(afirmacion=='s' || afirmacion=='S')
+            if(idController(list,  len,  id)!=-1)
             {
-                printf("El nuevo el cliente fue agregado....\n");
 
-                todoOk=0;
+            	printf(" ___________________________________________________________ \n");
+            	printf("|                                                           |\n");
+            	printf("|                 *** Alta de Passenger ***                 |\n");
+            	printf("|___________________________________________________________|\n");
+
+            	list[index].id=idController(list,  len,  id);
+
+            	ingresoCadena(name, "Ingrese el nombre del pasajero: ", "Error.Ingrese el nombre del pasajero: ", 21);
+            	strcpy(list[index].name, name);
+
+            	ingresoCadena(lastName, "Ingrese el apellido del pasajero: ", "Error.Ingrese el apellido del pasajero: ", 21);
+            	strcpy(list[index].lastName, lastName);
+
+            	ingresoFlotante(&price, "Ingrese el precio del vuelo entre(70000-150000): ", "Error.Ingrese el precio del vuelo entre(70000-150000): ", 70000, 150000);
+            	list[index].price=price;
+
+            	ingresoLetrasNumeros(flyCode, "Ingrese el codigo del vuelo del pasajero: ", "Error.Ingrese el codigo del vuelo del pasajero: ", 10);
+            	strcpy(list[index].flyCode, flyCode);
+
+            	ingresoEntero(&typePassenger, "Ingrese el tipo de pasajero (1-PRIMERA CLASE, 2-COMERCIAL, 3-TURISTA): ", "Ingrese el tipo de pasajero (1-PRIMERA CLASE, 2-COMERCIAL, 3-TURISTA): ", 1, 3);
+            	list[index].typePassenger=typePassenger;
+
+            	ingresoEntero(&statusFlight, "Ingrese el estado del vuelvo (1-ACTIVO, 2-DEMORADO, 3-CANCELADO): ", "Error.Ingrese el estado del vuelvo (1-ACTIVO, 2-DEMORADO, 3-CANCELADO): ", 1, 3);
+            	list[index].statusFlight=statusFlight;
+
+            	list[index].isEmpty=0;
+
+            	printf("\n\n");
+
+            	printf(" ________________________________________________________________________________________________\n");
+            	printf("|                                                                                                |\n");
+            	printf("|                                  **TRAVEL UTN ARGENTINA**                                      |\n");
+            	printf("|                                        **PASSENGER**                                           |\n");
+            	printf("|________________________________________________________________________________________________|\n");
+            	printf("|   ID   |     NAME    |   LASTNAME  |   PRICE   | FLY CODE     | TYPE PASSENGER | STATUS FLIGHT |\n");
+            	printf("|--------|-------------|-------------|-----------|--------------|----------------|---------------|\n");
+            	printPassenger(list[index]);
+
+            	ingresoChar(&afirmacion, "\n\nIngrese S para agregar al pasajero ingresado: ");
+            	if(afirmacion=='s' || afirmacion=='S')
+            	{
+            		printf("El nuevo el cliente fue agregado....\n");
+            		id++;
+            		todoOk=0;
+            	}
+            	else
+            	{
+            		list[index].isEmpty=1;
+            		printf("Se ha producido un error...\n");
+            	}
             }
             else
             {
-                id--;
-                list[index].isEmpty=1;
-                printf("Se ha producido un error...\n");
+            	printf("Se ha producido un error...\n");
             }
         }
         else
@@ -348,8 +373,8 @@ int mostrarListadoInforme(ePassenger* list, int len, int campo)
         switch(campo)
         {
             case 1:
-                ordenamientoPorApellidoTipoPasajero(list, len);
-                printListPassenger(list, len);
+            		ordenamientoPorApellidoTipoPasajero(list, len);
+            		printListPassenger(list, len);
                 break;
             case 2:
                 promedioPrecioPasajes(list, len, &acumuladorPreciosVuelos, &cantidadPasajerosIngresados, &promedioFinalInforme);
