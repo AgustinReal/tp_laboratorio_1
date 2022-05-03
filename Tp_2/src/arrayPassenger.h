@@ -111,6 +111,14 @@ int modifyPassenger(ePassenger* list, int len);
  */
 int pedirListado(int* campo);
 /**
+ * @fn int pedirOrdenamiento(int*)
+ * @brief this function allows you to choose a field for a menu.
+ *
+ * @param tipo: field to choose.
+ * @return todoOk: Return (-1) if Error [Invalid length or NULL pointer or if can't find a passenger] - (0) if Ok.
+ */
+int pedirOrdenamiento(int* tipo);
+/**
  * @fn int mostrarListadoInforme(ePassenger*, int, int)
  * @brief This function in your reports menu equipped with the 4 options: list, averages, total collected, etc...
  *
@@ -131,7 +139,7 @@ int mostrarListadoInforme(ePassenger* list, int len, int campo);
  * @param len: size array.
  * @return todoOk: Return (-1) if Error [Invalid length or NULL pointer or if can't find a passenger] - (0) if Ok.
  */
-int ordenamientoPorApellidoTipoPasajero(ePassenger* list, int len);
+int ordenamientoPorApellidoTipoPasajero(ePassenger* list, int len,  int tipo);
 /**
  * @fn int ordenamientoCodigoVueloEstadoActivo(ePassenger*, int)
  * @brief This function double-orders the list of passengers by "active" flight status and by flight code.
@@ -140,7 +148,7 @@ int ordenamientoPorApellidoTipoPasajero(ePassenger* list, int len);
  * @param len: size array.
  * @return todoOk: Return (-1) if Error [Invalid length or NULL pointer or if can't find a passenger] - (0) if Ok.
  */
-int ordenamientoCodigoVueloEstadoActivo(ePassenger* list, int len);
+int ordenamientoCodigoVueloEstadoActivo(ePassenger* list, int len, int tipo);
 /**
  * @fn int totalYpromedioPrecioPasajes(ePassenger*, int, float*, int*, float*)
  * @brief This function calculates the average of the prices of the flights entered by the passengers.

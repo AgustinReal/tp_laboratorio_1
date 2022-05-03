@@ -359,6 +359,43 @@ int pedirListado(int* campo)
 
     return todoOk;
 }
+int pedirOrdenamiento(int* tipo)
+{
+    int todoOk=1;
+    int elegirOpcion;
+
+    if(tipo!=NULL)
+    {
+        ingresoEntero(&elegirOpcion,      " _____________________________________________ \n"
+										  "|                                             |\n"
+										  "|         **MENU TIPO ORDENAMIENTO**          |\n"
+										  "|_____________________________________________|\n"
+										  "|                                             |\n"
+										  "|1-ASCENDENTE                                 |\n"
+										  "|2-DESCENDENTE                                |\n"
+										  "|3-Salir                                      |\n"
+										  "|_____________________________________________|\n"
+										  "option: ",
+										  " _____________________________________________ \n"
+										  "|                                             |\n"
+										  "|            REINGRESE OPTION (1-3)           |\n"
+										  "|_____________________________________________|\n"
+										  " _____________________________________________ \n"
+										  "|                                             |\n"
+										  "|         **MENU TIPO ORDENAMIENTO**          |\n"
+										  "|_____________________________________________|\n"
+										  "|                                             |\n"
+										  "|1-ASCENDENTE                                 |\n"
+										  "|2-DESCENDENTE                                |\n"
+										  "|3-Salir                                      |\n"
+										  "|_____________________________________________|\n"
+										  "option: ", 1,2);
+            *tipo=elegirOpcion;
+            todoOk=0;
+    }
+
+    return todoOk;
+}
 int mostrarListadoInforme(ePassenger* list, int len, int campo)
 {
     int todoOk=1;
@@ -366,6 +403,7 @@ int mostrarListadoInforme(ePassenger* list, int len, int campo)
     int cantidadPasajerosIngresados=0;
     float promedioFinalInforme;
     int contadorPasajerosSuperanElPromedio=0;
+    int tipo;
 
     if(list!=NULL && len>0)
     {
@@ -373,9 +411,21 @@ int mostrarListadoInforme(ePassenger* list, int len, int campo)
         switch(campo)
         {
             case 1:
-            		ordenamientoPorApellidoTipoPasajero(list, len);
-            		printListPassenger(list, len);
-                break;
+				pedirOrdenamiento(&tipo);
+				switch(tipo)
+				{
+					case 1:
+						ordenamientoPorApellidoTipoPasajero(list, len, 0);
+						break;
+					case 2:
+						ordenamientoPorApellidoTipoPasajero(list, len, 1);
+						break;
+				}
+				if(tipo==1 || tipo==2)
+				{
+					printListPassenger(list, len);
+				}
+				break;
             case 2:
                 promedioPrecioPasajes(list, len, &acumuladorPreciosVuelos, &cantidadPasajerosIngresados, &promedioFinalInforme);
                 cantidadPasajerosConGastosSuperiorA(list, len, &contadorPasajerosSuperanElPromedio, promedioFinalInforme);
@@ -384,7 +434,18 @@ int mostrarListadoInforme(ePassenger* list, int len, int campo)
                 printf("La cantidad de pasajeros que superan precio promedio de los vuelos es: %d\n", contadorPasajerosSuperanElPromedio);
                 break;
             case 3:
-                ordenamientoCodigoVueloEstadoActivo(list, len);
+                pedirOrdenamiento(&tipo);
+				switch(tipo)
+				{
+					case 1:
+						ordenamientoCodigoVueloEstadoActivo(list, len, 0);
+
+						break;
+					case 2:
+						ordenamientoCodigoVueloEstadoActivo(list, len, 1);
+
+						break;
+				}
                 break;
         }
         todoOk=0;
@@ -392,24 +453,24 @@ int mostrarListadoInforme(ePassenger* list, int len, int campo)
 
     return todoOk;
 }
-int ordenamientoPorApellidoTipoPasajero(ePassenger* list, int len)
+int ordenamientoPorApellidoTipoPasajero(ePassenger* list, int len, int tipo)
 {
     int todoOk=1;
     ePassenger auxPassenger;
 
     if(list!=NULL && len>0)
     {
-       for(int i=0;i<len;i++)
-       {
-           for(int j=i+1;j<len;j++)
+    	for(int i=0;i<len;i++)
+    	{
+    	   for(int j=i+1;j<len;j++)
            {
-               if(strcmp(list[i].lastName, list[j].lastName)>0)
+               if((strcmp(list[i].lastName, list[j].lastName)>0 && tipo==0) || (strcmp(list[i].lastName, list[j].lastName)==0 && list[i].typePassenger>list[j].typePassenger && tipo==0))
                {
                   auxPassenger=list[i];
                   list[i]=list[j];
                   list[j]=auxPassenger;
                }
-               else if(strcmp(list[i].lastName, list[j].lastName)==0 && list[i].typePassenger>list[j].typePassenger)
+               else if((strcmp(list[i].lastName, list[j].lastName)<0 && tipo==1) || (strcmp(list[i].lastName, list[j].lastName)==0 && list[i].typePassenger<list[j].typePassenger && tipo==1))
                {
                   auxPassenger=list[i];
                   list[i]=list[j];
@@ -422,25 +483,31 @@ int ordenamientoPorApellidoTipoPasajero(ePassenger* list, int len)
 
     return todoOk;
 }
-int ordenamientoCodigoVueloEstadoActivo(ePassenger* list, int len)
+int ordenamientoCodigoVueloEstadoActivo(ePassenger* list, int len, int tipo)
 {
     int todoOk=1;
     ePassenger swapPasseger;
 
     if(list!=NULL && len>0)
     {
-        for(int i=0;i<len;i++)
-        {
-            for(int j=i+1;j<len;j++)
-            {
-                  if(strcmp(list[i].flyCode, list[j].flyCode)>0)
-                  {
-                    swapPasseger=list[i];
-                    list[i]=list[j];
-                    list[j]=swapPasseger;
-                  }
-            }
-        }
+    	for(int i=0;i<len;i++)
+    	{
+    		for(int j=i+1;j<len;j++)
+    		{
+    			if(strcmp(list[i].flyCode, list[j].flyCode)>0 && tipo==0)
+    			{
+    				swapPasseger=list[i];
+    				list[i]=list[j];
+    				list[j]=swapPasseger;
+    			}
+    			else if(strcmp(list[i].flyCode, list[j].flyCode)<0 && tipo==1)
+    			{
+    				swapPasseger=list[i];
+    				list[i]=list[j];
+    				list[j]=swapPasseger;
+    			}
+    		}
+    	}
         printf(" ________________________________________________________________________________________________\n");
         printf("|                                                                                                |\n");
         printf("|                                  **TRAVEL UTN ARGENTINA**                                      |\n");

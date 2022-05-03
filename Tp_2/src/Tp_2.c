@@ -104,6 +104,7 @@ int main()
                 else
                 {
                     pedirListado(&elegirInforme);
+
                     mostrarListadoInforme(listPassenger, LENPASSENGER, elegirInforme);
                 }
                 break;
