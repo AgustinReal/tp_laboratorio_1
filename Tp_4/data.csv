@@ -1,0 +1,12 @@
+id,nombre,apellido,precio,codigoVuelo,tipoPasajero,estadoVuelo
+1,Lou,Gonzalez,10000.00,BA2491A,2,1
+2,Ulrike,Munioz,25000.00,IB0800A,3,4
+3,Brade,Rojas,20000.00,MM0987B,2,2
+4,Kimbell,Diaz,50000.00,BA2491A,3,3
+5,Sheelagh,Perez,18000.00,IB0800A,2,1
+6,Gayle,Soto,30000.00,MM0987B,1,4
+7,Kimberlee,Contreras,33000.00,BA2491A,3,1
+8,Henrieta,Silva,30020.00,IB0800A,3,1
+9,Jeanine,Martinez,18000.00,MM0987B,2,2
+10,Aggie,Sepulveda,15000.00,BA2491A,1,1
+11,Agustin,Real,47555.00,BocaJrs12,3,4

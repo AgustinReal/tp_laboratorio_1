@@ -1,0 +1,72 @@
+# depslib dependency file v1.0
+1655511067 source:c:\users\usuario\desktop\programacion 1\tp4\linkedlist.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"LinkedList.h"
+
+1655516803 c:\users\usuario\desktop\programacion 1\tp4\linkedlist.h
+
+1655491821 source:c:\users\usuario\desktop\programacion 1\tp4\inputs.c
+	<stdio.h>
+	<stdlib.h>
+	<ctype.h>
+	<string.h>
+	"inputs.h"
+
+1655491821 c:\users\usuario\desktop\programacion 1\tp4\inputs.h
+
+1655491821 source:c:\users\usuario\desktop\programacion 1\tp4\parser.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"Passenger.h"
+	"controller.h"
+
+1655491821 c:\users\usuario\desktop\programacion 1\tp4\passenger.h
+
+1655517998 c:\users\usuario\desktop\programacion 1\tp4\controller.h
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"parser.h"
+
+1655491821 c:\users\usuario\desktop\programacion 1\tp4\parser.h
+
+1655491821 source:c:\users\usuario\desktop\programacion 1\tp4\passenger.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"inputs.h"
+	"Passenger.h"
+
+1655516803 source:c:\users\usuario\desktop\programacion 1\tp4\controller.c
+	<stdio.h>
+	<stdlib.h>
+	<strings.h>
+	"LinkedList.h"
+	"Passenger.h"
+	"parser.h"
+	"controller.h"
+	"inputs.h"
+	"menu.h"
+
+1655517998 c:\users\usuario\desktop\programacion 1\tp4\menu.h
+
+1655499415 source:c:\users\usuario\desktop\programacion 1\tp4\main.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+	"controller.h"
+	"Passenger.h"
+	"inputs.h"
+	"parser.h"
+	"menu.h"
+
+1655515438 source:c:\users\usuario\desktop\programacion 1\tp4\menu.c
+	<stdio.h>
+	<stdlib.h>
+	"menu.h"
+	"inputs.h"
+
